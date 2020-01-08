@@ -9,22 +9,49 @@ public class Main {
 
     }
 
+   public static int reverse(int num) {
+
+        int reversed = 0;
+        while(num != 0) {
+            int digit = num % 10;
+            reversed = (reversed * 10) + digit;
+            num /= 10;
+        }
+        return reversed;
+    }
+
+    // works based on criteria
+    public static int getDigitCount (int number) {
+
+        if (number < 0) {
+            return -1;
+        }
+        return String.valueOf(number).length();
+    }
+
+
+
     public static void numberToWords (int number) {
         if (number < 0) {
             System.out.println("Invalid value;");
+        } else if(number == 0) {
+            System.out.println("Zero");
         }
-
+        int reverseNumber = reverse(number);
+        int reversedCount = getDigitCount(reverseNumber);
         int originalCount = getDigitCount(number);
-        number = reverse(number);
-        int reversedCount = getDigitCount(reverse(number));
 
 
-        while(number > 0) {
+        while(reverseNumber > 0) {
 
-            int separateDigit = number % 10;
-            number = number / 10;
+            int separateDigit;
+            separateDigit = reverseNumber % 10;
+            reverseNumber  /= 10;
 
             switch (separateDigit) {
+                case 0:
+                    System.out.println("Zero");
+                    break;
                 case 1:
                     System.out.println("One");
                     break;
@@ -54,36 +81,11 @@ public class Main {
                     break;
 
             }
-            if(originalCount != reversedCount) {
-                for (int i = reversedCount; i < originalCount; i++) {
-                    System.out.println("Zero");
-                }
-            }
         }
-    }
-
-    // Works based on criteria
-    public static int reverse(int num) {
-
-        int reversed = 0;
-        while(num != 0) {
-            int digit = num % 10;
-            reversed = reversed * 10 + digit;
-            num /= 10;
+        while (originalCount != reversedCount) {
+            System.out.println("Zero");
+            reversedCount++;
         }
-        System.out.println(reversed);
-        return reversed;
-    }
-
-    // works based on criteria
-    public static int getDigitCount (int number) {
-
-        if (number < 0) {
-            System.out.println("negative");
-            return -1;
-        }
-        System.out.println(String.valueOf(number).length());
-        return String.valueOf(number).length();
     }
 }
 
